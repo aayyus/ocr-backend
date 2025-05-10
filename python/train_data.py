@@ -1,0 +1,16 @@
+TRAIN_DATA = [
+    ("TAB SEUAWLTU 2 Morning 3 Days", {'entities': [(0, 12, 'MEDICINE'), (13, 29, 'DOSAGE')]}),
+    ("CAP VIXJZLF 2 Night 7 Days", {'entities': [(0, 11, 'MEDICINE'), (12, 26, 'DOSAGE')]}),
+    ("CAP VUTODACC 1 Morning 7 Days", {'entities': [(0, 12, 'MEDICINE'), (13, 29, 'DOSAGE')]}),
+    ("SYP COGHM 1 Morning, 1 Nig®tDays", {'entities': [(0, 9, 'MEDICINE'), (10, 32, 'DOSAGE')]}),
+    ("TAB CRORFG 1 Night 3 Days", {'entities': [(0, 10, 'MEDICINE'), (11, 25, 'DOSAGE')]}),
+    ("CAP JHWKR 1 Morning, 1 Nigi# Days", {'entities': [(0, 9, 'MEDICINE'), (10, 33, 'DOSAGE')]}),
+    ("SYP ZSVLNHMZ 1 Night 14 Days", {'entities': [(0, 12, 'MEDICINE'), (13, 28, 'DOSAGE')]}),
+    ("INJ OOELXJ 1 Night 3 Days", {'entities': [(0, 10, 'MEDICINE'), (11, 25, 'DOSAGE')]}),
+    ("CAP TZCPT 1 Morning, 2 NightDays", {'entities': [(0, 9, 'MEDICINE'), (10, 32, 'DOSAGE')]}),
+    ("CAP YZIAJBOX 1 Morning, 2 Nig8tDays", {'entities': [(0, 12, 'MEDICINE'), (13, 35, 'DOSAGE')]}),
+    ("CAP SBUKVJWS 2 Morning 10 Days", {'entities': [(0, 12, 'MEDICINE'), (13, 30, 'DOSAGE')]}),
+    ("CAP YYGCD 2 Night 8 Days", {'entities': [(0, 9, 'MEDICINE'), (10, 24, 'DOSAGE')]}),
+    ("TAB UQADEPDG 1 Morning, 2 Nig8tDays", {'entities': [(0, 12, 'MEDICINE'), (13, 35, 'DOSAGE')]}),
+    ("TAB VSGSI 1 Morning, 2 Nig Days", {'entities': [(0, 9, 'MEDICINE'), (10, 31, 'DOSAGE')]}),
+]

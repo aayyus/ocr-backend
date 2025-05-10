@@ -1,0 +1,50 @@
+{"text": "1) SYP GLEZA 1 Morning, 1 Night, 5 Days", "entities": [[3, 12, "MEDICINE"], [13, 31, "DOSAGE"], [33, 39, "DURATION"]]}
+{"text": "2) INJ JBQJMD 1 Morning, 1 Night, 3 Days", "entities": [[3, 13, "MEDICINE"], [14, 32, "DOSAGE"], [34, 40, "DURATION"]]}
+{"text": "3) CAP GZELD 1 Night, 7 Days", "entities": [[3, 12, "MEDICINE"], [13, 20, "DOSAGE"], [22, 28, "DURATION"]]}
+{"text": "4) CAP PWDJUQ 1 Night, 7 Days", "entities": [[3, 13, "MEDICINE"], [14, 21, "DOSAGE"], [23, 29, "DURATION"]]}
+{"text": "5) CAP QIKTH 2 Night, 7 Days", "entities": [[3, 12, "MEDICINE"], [13, 20, "DOSAGE"], [22, 28, "DURATION"]]}
+{"text": "6) SYP MOWLUJS 2 Night, 10 Days", "entities": [[3, 14, "MEDICINE"], [15, 22, "DOSAGE"], [24, 31, "DURATION"]]}
+{"text": "7) SYP CJVCBPQN 2 Night, 7 Days", "entities": [[3, 15, "MEDICINE"], [16, 23, "DOSAGE"], [25, 31, "DURATION"]]}
+{"text": "8) CAP LAGZFY 2 Night, 3 Days", "entities": [[3, 13, "MEDICINE"], [14, 21, "DOSAGE"], [23, 29, "DURATION"]]}
+{"text": "9) TAB IEZYI 1 Night, 3 Days", "entities": [[3, 12, "MEDICINE"], [13, 20, "DOSAGE"], [22, 28, "DURATION"]]}
+{"text": "10) TAB XUEXHQNM 1 Morning, 1 Night, 3 Days", "entities": [[4, 16, "MEDICINE"], [17, 35, "DOSAGE"], [37, 43, "DURATION"]]}
+{"text": "11) SYP QOULLSOJ 2 Morning, 5 Days", "entities": [[4, 16, "MEDICINE"], [17, 26, "DOSAGE"], [28, 34, "DURATION"]]}
+{"text": "12) INJ HODMQAR 1 Morning, 1 Night, 7 Days", "entities": [[4, 15, "MEDICINE"], [16, 34, "DOSAGE"], [36, 42, "DURATION"]]}
+{"text": "13) CAP GPGIBMDJ 1 Night, 7 Days", "entities": [[4, 16, "MEDICINE"], [17, 24, "DOSAGE"], [26, 32, "DURATION"]]}
+{"text": "14) SYP VAKWDJ 1 Morning, 1 Night, 15 Days", "entities": [[4, 14, "MEDICINE"], [15, 33, "DOSAGE"], [35, 42, "DURATION"]]}
+{"text": "15) INJ KABKF 2 Morning, 10 Days", "entities": [[4, 13, "MEDICINE"], [14, 23, "DOSAGE"], [25, 32, "DURATION"]]}
+{"text": "16) TAB TESFDT 1 Morning, 1 Night, 10 Days", "entities": [[4, 14, "MEDICINE"], [15, 33, "DOSAGE"], [35, 42, "DURATION"]]}
+{"text": "17) CAP BABWLFHS 1 Morning, 7 Days", "entities": [[4, 16, "MEDICINE"], [17, 26, "DOSAGE"], [28, 34, "DURATION"]]}
+{"text": "18) CAP PQDYS 1 Night, 15 Days", "entities": [[4, 13, "MEDICINE"], [14, 21, "DOSAGE"], [23, 30, "DURATION"]]}
+{"text": "19) TAB PNVXXJTP 1 Morning, 1 Night, 5 Days", "entities": [[4, 16, "MEDICINE"], [17, 35, "DOSAGE"], [37, 43, "DURATION"]]}
+{"text": "20) SYP XOOGJ 1 Morning, 7 Days", "entities": [[4, 13, "MEDICINE"], [14, 23, "DOSAGE"], [25, 31, "DURATION"]]}
+{"text": "21) INJ EWWUVE 1 Morning, 2 Night, 3 Days", "entities": [[4, 14, "MEDICINE"], [15, 33, "DOSAGE"], [35, 41, "DURATION"]]}
+{"text": "22) SYP ZBORPDTJ 1 Night, 15 Days", "entities": [[4, 16, "MEDICINE"], [17, 24, "DOSAGE"], [26, 33, "DURATION"]]}
+{"text": "23) SYP DZYPTNV 1 Night, 5 Days", "entities": [[4, 15, "MEDICINE"], [16, 23, "DOSAGE"], [25, 31, "DURATION"]]}
+{"text": "24) INJ LJHOQP 1 Morning, 2 Night, 15 Days", "entities": [[4, 14, "MEDICINE"], [15, 33, "DOSAGE"], [35, 42, "DURATION"]]}
+{"text": "25) CAP XNNGGRK 2 Night, 10 Days", "entities": [[4, 15, "MEDICINE"], [16, 23, "DOSAGE"], [25, 32, "DURATION"]]}
+{"text": "26) INJ GIOITLK 1 Morning, 3 Days", "entities": [[4, 15, "MEDICINE"], [16, 25, "DOSAGE"], [27, 33, "DURATION"]]}
+{"text": "27) INJ CEWLYG 1 Morning, 2 Night, 5 Days", "entities": [[4, 14, "MEDICINE"], [15, 33, "DOSAGE"], [35, 41, "DURATION"]]}
+{"text": "28) SYP GOJOYZ 2 Morning, 15 Days", "entities": [[4, 14, "MEDICINE"], [15, 24, "DOSAGE"], [26, 33, "DURATION"]]}
+{"text": "29) TAB VPEOL 1 Morning, 3 Days", "entities": [[4, 13, "MEDICINE"], [14, 23, "DOSAGE"], [25, 31, "DURATION"]]}
+{"text": "30) INJ JMDBS 1 Morning, 2 Night, 3 Days", "entities": [[4, 13, "MEDICINE"], [14, 32, "DOSAGE"], [34, 40, "DURATION"]]}
+{"text": "31) INJ HDAEN 1 Morning, 1 Night, 3 Days", "entities": [[4, 13, "MEDICINE"], [14, 32, "DOSAGE"], [34, 40, "DURATION"]]}
+{"text": "32) INJ TKVJJ 2 Night, 7 Days", "entities": [[4, 13, "MEDICINE"], [14, 21, "DOSAGE"], [23, 29, "DURATION"]]}
+{"text": "33) INJ MTYHLI 1 Night, 3 Days", "entities": [[4, 14, "MEDICINE"], [15, 22, "DOSAGE"], [24, 30, "DURATION"]]}
+{"text": "34) CAP LNZMKVN 1 Morning, 2 Night, 15 Days", "entities": [[4, 15, "MEDICINE"], [16, 34, "DOSAGE"], [36, 43, "DURATION"]]}
+{"text": "35) CAP YOSSXLDL 2 Morning, 5 Days", "entities": [[4, 16, "MEDICINE"], [17, 26, "DOSAGE"], [28, 34, "DURATION"]]}
+{"text": "36) CAP MCKSVNL 1 Night, 7 Days", "entities": [[4, 15, "MEDICINE"], [16, 23, "DOSAGE"], [25, 31, "DURATION"]]}
+{"text": "37) CAP GHHIX 2 Morning, 10 Days", "entities": [[4, 13, "MEDICINE"], [14, 23, "DOSAGE"], [25, 32, "DURATION"]]}
+{"text": "38) CAP BBMUN 1 Morning, 3 Days", "entities": [[4, 13, "MEDICINE"], [14, 23, "DOSAGE"], [25, 31, "DURATION"]]}
+{"text": "39) TAB DZDSEU 1 Morning, 5 Days", "entities": [[4, 14, "MEDICINE"], [15, 24, "DOSAGE"], [26, 32, "DURATION"]]}
+{"text": "40) TAB DZJWYWOI 1 Morning, 1 Night, 15 Days", "entities": [[4, 16, "MEDICINE"], [17, 35, "DOSAGE"], [37, 44, "DURATION"]]}
+{"text": "41) TAB BRPPHZFU 1 Night, 15 Days", "entities": [[4, 16, "MEDICINE"], [17, 24, "DOSAGE"], [26, 33, "DURATION"]]}
+{"text": "42) INJ UHHKS 2 Morning, 3 Days", "entities": [[4, 13, "MEDICINE"], [14, 23, "DOSAGE"], [25, 31, "DURATION"]]}
+{"text": "43) SYP TPXKVG 1 Night, 5 Days", "entities": [[4, 14, "MEDICINE"], [15, 22, "DOSAGE"], [24, 30, "DURATION"]]}
+{"text": "44) SYP HNJXGAU 1 Morning, 2 Night, 5 Days", "entities": [[4, 15, "MEDICINE"], [16, 34, "DOSAGE"], [36, 42, "DURATION"]]}
+{"text": "45) SYP AEXXJFOO 2 Night, 10 Days", "entities": [[4, 16, "MEDICINE"], [17, 24, "DOSAGE"], [26, 33, "DURATION"]]}
+{"text": "46) CAP DDDLDKVR 1 Morning, 3 Days", "entities": [[4, 16, "MEDICINE"], [17, 26, "DOSAGE"], [28, 34, "DURATION"]]}
+{"text": "47) INJ CLCBVO 1 Morning, 1 Night, 3 Days", "entities": [[4, 14, "MEDICINE"], [15, 33, "DOSAGE"], [35, 41, "DURATION"]]}
+{"text": "48) CAP JTRYI 1 Morning, 2 Night, 3 Days", "entities": [[4, 13, "MEDICINE"], [14, 32, "DOSAGE"], [34, 40, "DURATION"]]}
+{"text": "49) SYP BVCDV 1 Morning, 2 Night, 10 Days", "entities": [[4, 13, "MEDICINE"], [14, 32, "DOSAGE"], [34, 41, "DURATION"]]}
+{"text": "50) CAP VROSVPMK 1 Morning, 3 Days", "entities": [[4, 16, "MEDICINE"], [17, 26, "DOSAGE"], [28, 34, "DURATION"]]}
