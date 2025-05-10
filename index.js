@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
 const Tesseract = require('tesseract.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
@@ -165,6 +165,7 @@ app.get('/saved-medicines', authenticateToken, async (req, res) => {
 });
 
 app.post('/saved-medicines', authenticateToken, async (req, res) => {
+ 
   const { name, dosage, time } = req.body;
   try {
     await pool.execute(
@@ -173,7 +174,7 @@ app.post('/saved-medicines', authenticateToken, async (req, res) => {
     );
     res.json({ message: 'Saved' });
   } catch (err) {
-    console.error(err);
+    console.error("error",err);
     res.status(500).json({ error: 'Database error' });
   }
 });
