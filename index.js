@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const express = require('express');
 const mysql = require('mysql2/promise');
 const multer = require('multer');
@@ -6,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
 const Tesseract = require('tesseract.js');
-const bcrypt = require("bcryptjs")
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
@@ -38,7 +39,6 @@ let pool;
   }
 })();
 
-// ✅ Multer storage config with increased file size limit
 const storage = multer.diskStorage({
   destination: (_, __, cb) => cb(null, 'uploads'),
   filename: (_, file, cb) => {
@@ -48,16 +48,23 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 🔥 Increased from 5MB to 10MB
+  limits: { fileSize: 10 * 1024 * 1024 },
 });
 if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 
 function authenticateToken(req, res, next) {
   const auth = req.headers['authorization'];
-  if (!auth) return res.sendStatus(401);
+  if (!auth) {
+    console.log('No authorization header found');
+    return res.sendStatus(401);
+  }
   const token = auth.split(' ')[1];
   jwt.verify(token, SECRET_KEY, (err, user) => {
-    if (err) return res.sendStatus(403);
+    if (err) {
+      console.error('Token verification error:', err);
+      return res.sendStatus(403);
+    }
+    console.log('Decoded user:', user);
     req.user = user;
     next();
   });
@@ -108,36 +115,54 @@ app.get('/profile', authenticateToken, async (req, res) => {
   }
 });
 
-// ✅ Updated upload route
 app.post('/upload', authenticateToken, (req, res, next) => {
   upload.single('image')(req, res, async (err) => {
     if (err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE') {
+      console.error('Multer error: File too large');
       return res.status(413).json({ error: 'File too large. Max size is 10MB.' });
     } else if (err) {
+      console.error('Multer error:', err);
       return res.status(500).json({ error: 'Upload failed' });
     }
 
-    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+    if (!req.file) {
+      console.error('No file uploaded');
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
 
     const filePath = path.join(__dirname, 'uploads', req.file.filename);
+    console.log(`Processing file: ${filePath}`);
     try {
       const { data: { text } } = await Tesseract.recognize(filePath, 'eng', { logger: m => console.log(m) });
+      console.log(`OCR text extracted: ${text}`);
       const cleanText = text.replace(/"/g, '\"').replace(/\n/g, ' ');
 
       const py = spawn('python', [path.join(__dirname, 'python', 'predictor.py'), cleanText]);
       let stdout = '', stderr = '';
-      py.stdout.on('data', chunk => stdout += chunk);
-      py.stderr.on('data', chunk => stderr += chunk);
+      py.stdout.on('data', chunk => {
+        stdout += chunk;
+        console.log(`Python stdout: ${chunk}`);
+      });
+      py.stderr.on('data', chunk => {
+        stderr += chunk;
+        console.error(`Python stderr: ${chunk}`);
+      });
 
       py.on('close', code => {
         fs.unlinkSync(filePath);
+        console.log(`Python process exited with code ${code}`);
         if (code !== 0) {
-          console.error('⚠️ Python stderr:', stderr);
+          console.error('⚠ Python stderr:', stderr);
           return res.status(500).json({ error: 'NER failed' });
         }
         try {
-          const meds = JSON.parse(stdout);
-          res.json({ ocrText: text, medicines: meds });
+          const result = JSON.parse(stdout);
+          console.log(`Parsed result: ${JSON.stringify(result)}`);
+          res.json({
+            ocrText: text,
+            cleanedText: result.cleaned_text,
+            medicines: result.medicines
+          });
         } catch (err) {
           console.error('❌ JSON parse error:', err);
           res.status(500).json({ error: 'Failed to parse NER output' });
@@ -154,7 +179,7 @@ app.post('/upload', authenticateToken, (req, res, next) => {
 app.get('/saved-medicines', authenticateToken, async (req, res) => {
   try {
     const [rows] = await pool.execute(
-      'SELECT * FROM medicines WHERE user_email = ? ORDER BY time ASC',
+      'SELECT * FROM medicines WHERE user_email = ?',
       [req.user.email]
     );
     res.json(rows);
@@ -164,17 +189,52 @@ app.get('/saved-medicines', authenticateToken, async (req, res) => {
   }
 });
 
-app.post('/saved-medicines', authenticateToken, async (req, res) => {
- 
-  const { name, dosage, time } = req.body;
+app.post('/save-medicines', authenticateToken, async (req, res) => {
   try {
-    await pool.execute(
-      'INSERT INTO medicines (user_email, name, dosage, time) VALUES (?, ?, ?, ?)',
-      [req.user.email, name, dosage, time]
-    );
-    res.json({ message: 'Saved' });
+    const medicines = req.body.medicines;
+    if (!medicines || !Array.isArray(medicines)) {
+      return res.status(400).json({ error: 'Medicines array is required' });
+    }
+
+    const insertQuery = 'INSERT INTO medicines (user_email, name, dosage, notification_id) VALUES (?, ?, ?, ?)';
+    for (const medicine of medicines) {
+      await pool.execute(insertQuery, [
+        req.user.email,
+        medicine.name,
+        medicine.dosage,
+        medicine.notificationId || null,
+      ]);
+    }
+
+    res.status(200).json({ message: 'Medicines saved successfully' });
   } catch (err) {
-    console.error("error",err);
+    console.error('Error saving medicines:', err);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// New endpoint to update a medicine
+app.put('/update-medicine/:id', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  const { name, dosage, notificationId } = req.body;
+
+  try {
+    const [rows] = await pool.execute(
+      'SELECT * FROM medicines WHERE id = ? AND user_email = ?',
+      [id, req.user.email]
+    );
+    if (!rows.length) {
+      return res.status(404).json({ error: 'Medicine not found or unauthorized' });
+    }
+
+    await pool.execute(
+      'UPDATE medicines SET name = ?, dosage = ?, notification_id = ? WHERE id = ? AND user_email = ?',
+      [name, dosage, notificationId || null, id, req.user.email]
+    );
+
+    res.status(200).json({ message: 'Medicine updated successfully' });
+  } catch (err) {
+    console.error('Error updating medicine:', err);
     res.status(500).json({ error: 'Database error' });
   }
 });

@@ -5,7 +5,6 @@ import re
 
 try:
     import spacy
-    
 except ImportError:
     sys.stderr.write("❌ spaCy is not installed. Please run: pip install spacy\n")
     sys.exit(1)
@@ -25,43 +24,45 @@ except Exception as e:
     sys.stderr.write(f"❌ Failed to load model: {e}\n")
     sys.exit(1)
 
-
 def extract_medicines(text: str):
-    doc = nlp(text)
+    # Step 1: Clean up common OCR errors
+    text = text.replace("NigBtDays", "Night 7 Days")
+    text = re.sub(r"\bIN\)", "INJ", text, flags=re.IGNORECASE)
+    text = re.sub(r"\b1NigBtDays\b", "1 Night 7 Days", text, flags=re.IGNORECASE)
+    text = re.sub(r"\b2NigBtDays\b", "2 Night 7 Days", text, flags=re.IGNORECASE)
 
-    raw_names = [ent.text.strip() for ent in doc.ents if ent.label_ == "MEDICINE"]
-    # Only keep those starting uppercase
-    names = [n for n in raw_names if n and n[0].isupper()]
+    # Step 2: Split by numbered entries
+    entries = re.split(r"(?=\b\d+\)\s*)", text)
 
-    dosages = [ent.text.strip() for ent in doc.ents if ent.label_ == "DOSAGE"]
-    durations = [ent.text.strip() for ent in doc.ents if ent.label_ == "DURATION"]
+    # Step 3: Patterns for extracting medicine
+    name_pattern = r"\b(?:TAB|CAP|SYP|INJ)[.\s]*[A-Z0-9]+"
+    dosage_pattern = r"\b\d+\s*(Morning|Night|Evening|Afternoon)(?:,\s*\d+\s*(Morning|Night|Evening|Afternoon))*"
+    duration_pattern = r"\b\d+\s*Days?\b"
 
-    # Fallback for dosage if model missed it
-    if not dosages:
-        m = re.search(r"\b\d+\s?(?:mg|g|ml|mcg|milligrams?)\b", text, re.IGNORECASE)
-        if m:
-            dosages = [m.group()]
+    refined_results = []
+    for entry in entries:
+        entry = entry.strip()
+        if not entry:
+            continue
 
-    results = []
-    for i, name in enumerate(names):
-        # strip both unit dosages and bare numbers
-        name_only = re.sub(
-            r"\b\d+\s?(?:mg|g|ml|mcg|milligrams?)\b|\b\d+\b",
-            "",
-            name,
-            flags=re.IGNORECASE
-        ).strip()
+        name_match = re.search(name_pattern, entry, re.IGNORECASE)
+        dosage_match = re.search(dosage_pattern, entry, re.IGNORECASE)
+        duration_match = re.search(duration_pattern, entry, re.IGNORECASE)
 
-        dosage = dosages[i] if i < len(dosages) else (dosages[0] if dosages else "")
-        duration = durations[i] if i < len(durations) else (durations[0] if durations else "")
+        name = name_match.group().strip().replace(".", "") if name_match else ""
+        dosage = dosage_match.group().strip() if dosage_match else ""
+        duration = duration_match.group().strip() if duration_match else ""
 
-        results.append({
-            "name": name_only,
-            "dosage": dosage,
-            "duration": duration
-        })
+        if name:
+            refined_results.append({
+                "name": name,
+                "dosage": dosage,
+                "duration": duration
+            })
 
-    return results
+    return refined_results
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -70,4 +71,9 @@ if __name__ == "__main__":
 
     text = sys.argv[1].replace("\n", " ").strip()
     meds = extract_medicines(text)
-    print(json.dumps(meds))
+    # Wrap the output in a JSON object with input text and medicines
+    output = {
+        "input_text": text,
+        "medicines": meds
+    }
+    print(json.dumps(output, indent=2))  # Pretty print with indentation
